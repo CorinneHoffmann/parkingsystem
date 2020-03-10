@@ -17,6 +17,10 @@ public class FareCalculatorServiceTest {
 
     private static FareCalculatorService fareCalculatorService;
     private Ticket ticket;
+    
+    private static  double arroundNumber(double number, double decimal){
+		return ((Math.round(number*decimal))/decimal);
+	}	
 
     @BeforeAll
     private static void setUp() {
@@ -39,7 +43,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals(ticket.getPrice(), Fare.CAR_RATE_PER_HOUR);
+        assertEquals(ticket.getPrice(), arroundNumber(Fare.CAR_RATE_PER_HOUR,100.0));
     }
 
     @Test
@@ -53,7 +57,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals(ticket.getPrice(), Fare.BIKE_RATE_PER_HOUR);
+        assertEquals(ticket.getPrice(), arroundNumber(Fare.BIKE_RATE_PER_HOUR,100.0));
     }
 
     @Test
@@ -93,7 +97,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
+        assertEquals(arroundNumber(0.75 * Fare.BIKE_RATE_PER_HOUR,100.0), ticket.getPrice() );
     }
 
     @Test
@@ -107,7 +111,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals( (0.75 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
+        assertEquals(arroundNumber(0.75 * Fare.CAR_RATE_PER_HOUR,100.0) , ticket.getPrice());
     }
 
     @Test
@@ -121,7 +125,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals( (24 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
+        assertEquals( arroundNumber(24 * Fare.CAR_RATE_PER_HOUR,100.0) , ticket.getPrice());
     }
 
 }
