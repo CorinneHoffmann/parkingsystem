@@ -82,7 +82,7 @@ public class ParkingDataBaseIT {
 		ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 		parkingService.processExitingVehicle();
 
-		assertEquals(ticketDAO.getTicket("ABCDEF").getPrice(), Fare.CAR_RATE_PER_HOUR);
+		assertEquals(ticketDAO.getTicket("ABCDEF").getPrice(), (1-Fare.FREE_DURATION) * Fare.CAR_RATE_PER_HOUR);
 		assertNotNull(ticketDAO.getTicket("ABCDEF").getOutTime());
 
 	}
