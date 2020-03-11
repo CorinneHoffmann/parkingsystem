@@ -86,4 +86,24 @@ public class TicketDAO {
         }
         return false;
     }
+    
+    public Integer getHistory(String vehicleRegNumber) {
+	        Connection con = null;
+	        Integer count = 0;
+	        
+	        try {
+	            con = dataBaseConfig.getConnection();
+	            PreparedStatement ps = con.prepareStatement(DBConstants.GET_HISTORY);
+	            ps.setString(1,vehicleRegNumber);
+	            ResultSet rs = ps.executeQuery();
+	            if(rs.next()){
+	          	 count=rs.getInt(1);
+	            }
+	        }catch (Exception ex){
+	            logger.error("Error getting history",ex);
+	        }finally {
+	             dataBaseConfig.closeConnection(con);
+	             return count;
+	         }
+	    } 
 }

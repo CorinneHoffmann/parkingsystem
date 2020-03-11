@@ -4,4 +4,6 @@ public class Fare {
     public static final double BIKE_RATE_PER_HOUR = 1.0;
     public static final double CAR_RATE_PER_HOUR = 1.5;
     public static final double FREE_DURATION = 0.5;
+    public static final double BIKE_RATE_PER_HOUR_WITH_FIDELITY = 1.0*0.95;
+    public static final double CAR_RATE_PER_HOUR_WITH_FIDELITY = 1.5*0.95;
 }

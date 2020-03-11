@@ -22,7 +22,7 @@ public class FareCalculatorService {
 
 	}
 
-	public void calculateFare(Ticket ticket) {
+	public void calculateFare(Ticket ticket, boolean fidelity) {
 		if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
 			throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
 		}
@@ -31,14 +31,25 @@ public class FareCalculatorService {
 		double outHour = ticket.getOutTime().getTime();
 		double duration = arroundNumber((outHour - inHour) / (1000 * 60 * 60), 1000.0);
 
+		/* the calculator considers the fidelity notion and a rate is applied */
 		if (duration > Fare.FREE_DURATION) {
 			switch (ticket.getParkingSpot().getParkingType()) {
 			case CAR: {
-				ticket.setPrice(arroundNumber((duration - Fare.FREE_DURATION) * Fare.CAR_RATE_PER_HOUR, 100.0));
+				if (fidelity) {
+					ticket.setPrice(arroundNumber((duration - Fare.FREE_DURATION) * Fare.CAR_RATE_PER_HOUR_WITH_FIDELITY, 100.0));
+				} else {
+					ticket.setPrice(
+							arroundNumber((duration - Fare.FREE_DURATION) * Fare.CAR_RATE_PER_HOUR, 100.0));
+				}
 				break;
 			}
 			case BIKE: {
-				ticket.setPrice(arroundNumber((duration - Fare.FREE_DURATION) * Fare.BIKE_RATE_PER_HOUR, 100.0));
+				if (fidelity) {
+					ticket.setPrice(arroundNumber((duration - Fare.FREE_DURATION) * Fare.BIKE_RATE_PER_HOUR_WITH_FIDELITY, 100.0));
+				} else {
+					ticket.setPrice(
+							arroundNumber((duration - Fare.FREE_DURATION) * Fare.BIKE_RATE_PER_HOUR, 100.0));
+				}
 				break;
 			}
 			default:
