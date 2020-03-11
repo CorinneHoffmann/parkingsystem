@@ -4,16 +4,28 @@ import com.parkit.parkingsystem.config.DataBaseConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
+import java.util.Properties;
 
 public class DataBaseTestConfig extends DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseTestConfig");
 
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
-        logger.info("Create DB connection");
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/test?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=Europe/Paris","root","root");
+    public Connection getConnection() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
+        Properties   properties = new Properties();
+        properties.load(new FileInputStream(new File("resources/credentials.properties")));
+
+	   String user = properties.getProperty("username");
+	   String pass = properties.getProperty("password");
+	   String url = properties.getProperty("urltest");
+	   logger.info("Create DB connection");
+	   Class.forName("com.mysql.cj.jdbc.Driver");	    
+       
+        return DriverManager.getConnection(url,user,pass);
     }
 
     public void closeConnection(Connection con){

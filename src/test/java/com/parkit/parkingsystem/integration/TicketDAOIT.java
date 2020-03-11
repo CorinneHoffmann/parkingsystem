@@ -95,6 +95,7 @@ public class TicketDAOIT {
 		ticketDAO.saveTicket(ticket);
 
 		Ticket ticketRetour = ticketDAO.getTicket(vehicleRegNumber);
-		assertEquals(ticketRetour.getOutTime(), null);
+		//assertEquals(ticketRetour.getOutTime(), null);
+		assertNull(ticketRetour.getOutTime());
 	}
 }
