@@ -15,18 +15,28 @@ public class DataBaseConfig {
 	private static final Logger logger = LogManager.getLogger("DataBaseConfig");
 
 	public Connection getConnection() throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
-		logger.info("Create DB connection");
 		Properties properties = new Properties();
-		properties.load(new FileInputStream(new File("resources/credentials.properties")));
-
-
-		String user = properties.getProperty("username");
-		String pass = properties.getProperty("password");
-		String url = properties.getProperty("urlprod");
-		logger.info("Create DB connection");
-		Class.forName("com.mysql.cj.jdbc.Driver");
-
+		String user = null;
+		String pass = null;
+		String url = null;
+		try {
+			FileInputStream fileInputStream = new FileInputStream(new File("resources/credentials.properties"));
+			try {
+				properties.load(fileInputStream);
+				user = properties.getProperty("username");
+				pass = properties.getProperty("password");
+				url = properties.getProperty("urlprod");
+				logger.info("Create DB connection");
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			} finally {
+				fileInputStream.close();
+			}
+			// return DriverManager.getConnection(url, user, pass);
+		} catch (FileNotFoundException e) {
+			System.out.println("chemin spécifié du fichier credentials.properties est incorrect");
+		}
 		return DriverManager.getConnection(url, user, pass);
+
 	}
 
 	public void closeConnection(Connection con) {

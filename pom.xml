@@ -201,7 +201,7 @@
 									<includes>
 										<include>coverage-reports/*.exec</include>
 										<include>coverage-reports/*.exec</include>
-									<!-- 	finaliser le rapport html -->
+										<!-- finaliser le rapport html -->
 									</includes>
 								</fileSet>
 							</fileSets>
@@ -221,6 +221,19 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>findbugs-maven-plugin</artifactId>
+							<version>3.0.5</version>
+						</plugin>
+					</reportPlugins>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
