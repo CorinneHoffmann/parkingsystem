@@ -7,7 +7,6 @@ import com.parkit.parkingsystem.model.Ticket;
  * This class calculate the ticket price according to the vehicle in entrance
  * and the parking lot duration
  * 
- * @param ticket - parking slot ticket
  */
 public class FareCalculatorService {
 
