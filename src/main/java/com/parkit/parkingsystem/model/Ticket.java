@@ -43,24 +43,36 @@ public class Ticket {
 		this.price = price;
 	}
 
-	/*
-	 * public Date getInTime() { if (inTime == null) return null; else return new
-	 * Date(inTime.getTime()); }
-	 */
-
 	public Date getInTime() {
-		return inTime;
-	}
-
-	public void setInTime(Date inTime) {
-		this.inTime = inTime;
-	}
+		if (inTime == null) {
+			return null;
+		} else {
+			return new Date(inTime.getTime());
+		}
+	};
 
 	public Date getOutTime() {
-		return outTime;
+		if (outTime == null) {
+			return null;
+		} else {
+			return new Date(outTime.getTime());
+		}
+	};
+
+	
+	public void setInTime(Date inTime) {
+		if (inTime == null)
+			this.inTime = null;
+		else
+		this.inTime = new Date(inTime.getTime());
+	
 	}
 
 	public void setOutTime(Date outTime) {
-		this.outTime = outTime;
+		if (outTime == null)
+			this.outTime = null;
+		else
+		this.outTime = new Date(outTime.getTime());
+	
 	}
 }
